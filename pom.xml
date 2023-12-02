@@ -11,12 +11,12 @@
 	</parent>
 
 	<groupId>de.ollie</groupId>
-	<artifactId>cube</artifactId>
+	<artifactId>cube-two</artifactId>
 	<version>2.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>CUBE</name>
-	<description>A user and application management application.</description>
+	<description>A user and application management application (second edition).</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
