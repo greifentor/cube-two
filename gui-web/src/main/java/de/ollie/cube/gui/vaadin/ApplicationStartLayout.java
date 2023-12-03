@@ -1,5 +1,7 @@
 package de.ollie.cube.gui.vaadin;
 
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PreserveOnRefresh;
@@ -11,7 +13,6 @@ import de.ollie.cube.core.service.AppConfiguration;
 import de.ollie.cube.core.service.UserAuthorizationService;
 import de.ollie.cube.core.service.localization.ResourceManager;
 import de.ollie.cube.gui.SessionOwner;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,29 +37,34 @@ public class ApplicationStartLayout extends VerticalLayout implements SessionOwn
 	private final SessionData sessionData;
 	private final UserAuthorizationService userAuthorizationService;
 
-	@PostConstruct
-	void postConstruct() {
-		setMargin(false);
-		setWidthFull();
-		add(
-				new UserLoginView(
-						appConfiguration,
-						null,
-						resourceManager,
-						this,
-						userAuthorizationService,
-						sessionData.getId()) {
-					@Override
-					public void loggedIn(UserAuthorizationSO userAuthorization) {
-						loggedInToApplication(userAuthorization);
-					}
-				});
-	}
+//	@PostConstruct
+//	void postConstruct() {
+//		setMargin(false);
+//		setWidthFull();
+//		add(
+//				new UserLoginView(
+//						appConfiguration,
+//						null,
+//						resourceManager,
+//						this,
+//						userAuthorizationService,
+//						sessionData.getId()) {
+//					@Override
+//					public void loggedIn(UserAuthorizationSO userAuthorization) {
+//						loggedInToApplication(userAuthorization);
+//					}
+//				});
+//	}
 
-	private void loggedInToApplication(UserAuthorizationSO userAuthorization) {
-		sessionData.setUserAuthorization(userAuthorization);
-		log.info("user '{}' has logged in.", sessionData.getUserAuthorization().getName());
-		getUI().ifPresent(ui -> ui.navigate(MainMenuLayout.URL));
+//	private void loggedInToApplication(UserAuthorizationSO userAuthorization) {
+//		sessionData.setUserAuthorization(userAuthorization);
+//		log.info("user '{}' has logged in.", sessionData.getUserAuthorization().getName());
+//		getUI().ifPresent(ui -> ui.navigate(MainMenuLayout.URL));
+//	}
+
+	@Override
+	protected void onAttach(AttachEvent attachEvent) {
+		UI.getCurrent().getPage().setLocation(MainMenuLayout.URL);
 	}
 
 	@Override
